@@ -1,23 +1,13 @@
 package me.Prem.DTC.commands;
 
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.java.JavaPlugin;
 
-import com.sk89q.worldedit.WorldEdit;
-import com.sk89q.worldedit.bukkit.BukkitAdapter;
-import com.sk89q.worldedit.bukkit.BukkitPlayer;
-import com.sk89q.worldedit.internal.annotation.Selection;
-import com.sk89q.worldedit.regions.Region;
-import com.sk89q.worldedit.world.World;
-
-import me.Prem.DTC.Main;
 import me.Prem.DTC.manager.GameManager;
 import me.Prem.DTC.manager.GameState;
+import me.Prem.DTC.utils.Utils;
 
 public class DtcCommands implements CommandExecutor
 {
@@ -30,30 +20,26 @@ public class DtcCommands implements CommandExecutor
 	
 	public boolean onCommand (CommandSender sender, Command command, String s, String[] args)
 	{
-		if (s.equalsIgnoreCase("dtc start"))
-		{
-			gameManager.setGameState(GameState.STARTING);
-			return true;
-		}
-		else if (s.equalsIgnoreCase("dtc stop"))
-		{
-			gameManager.setGameState(GameState.INACTIVE);
-			return true;
-		}
-		else if (s.equalsIgnoreCase("dtc create"))
-		{
-			gameManager.setGameState(GameState.CREATE);
-		
-		}
-		else if (s.equalsIgnoreCase("dtc delete"))
-		{
-			gameManager.setGameState(GameState.DELETE);
-			return true;
-		}
-		else if (s.equalsIgnoreCase("dtc setloot"))
-		{
-			gameManager.setGameState(GameState.SETLOOT);
-			return true;
+		Player player = (Player) sender;
+		if (player.isOp()) {
+			if (s.equalsIgnoreCase("dtc start"))
+			{
+				gameManager.setGameState(GameState.INITIALIZE, player);
+				player.sendMessage(Utils.chat("&eStarting Game..."));
+				return true;
+			}
+			else if (s.equalsIgnoreCase("dtc stop"))
+			{
+				gameManager.setGameState(GameState.INACTIVE, player);
+				player.sendMessage(Utils.chat("&eStopping Game..."));
+				return true;
+			}
+			else if (s.equalsIgnoreCase("dtc setloot"))
+			{	
+				// call function and get return value, if true, tell player it succesfully set the loot.
+				return true;
+			}
+			player.sendMessage(Utils.chat("&cInvalid Command"));	
 		}
 		return false;
 	}

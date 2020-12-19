@@ -1,28 +1,29 @@
 package me.Prem.DTC.manager;
 
-import java.util.Set;
-import java.util.HashSet;
 
-import org.bukkit.Location;
+
 import org.bukkit.Material;
-import org.bukkit.block.Block;
+
+import me.Prem.DTC.Blocks.CoreItemStack;
 
 public class CoreManager 
 {
+	private int coreHealth;
 	private GameManager gameManager;
+	private CoreItemStack coreBlockItemStack;
 	
 	public CoreManager (GameManager gameManager)
 	{
 		this.gameManager = gameManager;
 		
-		
 	}
 	
+	public CoreItemStack getCoreItemStack() {
+		Material material = Material.getMaterial(gameManager.getConfigClass().getCoreMaterial());
+		return new CoreItemStack(material, "Core");	
+	}
 	
-	private String coreName;
-	private Location coreLocation;
-	private int coreHealth;
-	private Material coreMaterial;
+
 	
 	
 	

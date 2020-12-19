@@ -1,17 +1,21 @@
 package me.Prem.DTC.manager;
 
-import org.bukkit.command.CommandSender;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import me.Prem.DTC.Main;
+import me.Prem.DTC.config.Config;
 
 public class GameManager {
 	
 	private final Main plugin;
-	public GameState gameState = GameState.INACTIVE;
+	
 	
 	private final CoreManager coreManager;
 	private final PlayerManager playerManager;
+	private Location coreLocation;
+	
+	private boolean isListening = false;
 	
 	public GameManager(Main plugin)
 	{
@@ -21,40 +25,41 @@ public class GameManager {
 		this.playerManager = new PlayerManager(this);
 	}
 	
-	public void setGameState(GameState gameState)
+	public void setGameState(GameState gameState, Player player)
 	{
 		//check if game is already active
-		if (this.gameState == GameState.ACTIVE && gameState == GameState.STARTING) return;
+		if (isListening && gameState == GameState.INITIALIZE) return;
 		
-		this.gameState= gameState;
 		switch(gameState)
 		{
-			case INACTIVE:
-				//DO NOTHING?
-				break;
-				
-			case CREATE:
-				
-				break;
-				
-			case SETLOOT:
-				break;
-				
-			case DELETE:
-				break;
-				
-			case ACTIVE:
-				//while game is active do stuff
-				break;
+		case INITIALIZE:
+			// give player special core block
+			player.getInventory().addItem(coreManager.getCoreItemStack());
+			isListening = true;
+			break;
 			
-			case STARTING:
-				//do stuff to start game
-				break;
+		case STARTING:
+			//do stuff to start game
+			
+			
+			break;	
+			
+		case INACTIVE:
+			// remove any special core blocks in a players inventory,
+			//and remove the game world block, stop keeping track of player breaking progress.
+			
+			break;
+			
+		case SETLOOT:
+			break;
+						
+		case WON:
+			//announce the winner
+			//give rewards using playerManager
+			break;
 				
-			case WON:
-				//announce the winner
-				//give rewards using playerManager
-				break;
+		default:
+			break;
 		}
 	}
 	
@@ -63,7 +68,15 @@ public class GameManager {
 		
 	}
 	
-	public CoreManager getBlockManager()
+	public void setCoreLocation(Location coreLocation) {
+		this.coreLocation = coreLocation;
+	}
+	
+	public Config getConfigClass() {
+		return plugin.getConfigClass();
+	}
+	
+	public CoreManager getCoreManager()
 	{
 		return coreManager;
 	}
@@ -71,6 +84,14 @@ public class GameManager {
 	public PlayerManager getPlayerManager()
 	{
 		return playerManager;
+	}
+	
+	public void setListening(boolean value) {
+		isListening = value;
+	}
+	
+	public boolean isListening() {
+		return isListening;
 	}
 
 }
