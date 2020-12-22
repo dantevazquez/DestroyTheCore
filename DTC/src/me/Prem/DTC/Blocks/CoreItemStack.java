@@ -11,12 +11,14 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import me.Prem.DTC.utils.Utils;
 
-public class CoreItemStack extends ItemStack{
+public class CoreItemStack extends ItemStack
+{
 
 	private String displayName;
 	private boolean isActive = false;
 	
-	public CoreItemStack(Material material, String displayName) {
+	public CoreItemStack(Material material, String displayName) 
+	{
 		super(material, 1);
 		this.displayName = displayName;
 		setCustomModelId(1);
@@ -25,27 +27,32 @@ public class CoreItemStack extends ItemStack{
 	
 	}
 	
-	public boolean isActive() {
+	public boolean isActive() 
+	{
 		return isActive;
 	}
 	
-	public void setActive(boolean value) {
+	public void setActive(boolean value) 
+	{
 		isActive = value;
 	}
 	
-	private void setCustomModelId(int customModelData) {
+	private void setCustomModelId(int customModelData) 
+	{
 		ItemMeta meta  = getItemMeta();
 		meta.setCustomModelData(customModelData);
 		setItemMeta(meta);
 	}
 	
-	private void setAsEnchanted(){
+	private void setAsEnchanted()
+	{
 		ItemMeta meta  = getItemMeta();
 		meta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
 		meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES,ItemFlag.HIDE_ENCHANTS);
 		setItemMeta(meta);
 	}
-	private void setNameData() {
+	private void setNameData() 
+	{
 		List<String> lore = new ArrayList<String>();
 		ItemMeta meta  = getItemMeta();
 		lore.add(Utils.chat("&dPlace on the ground to begin DTC event!"));

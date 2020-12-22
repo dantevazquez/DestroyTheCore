@@ -4,6 +4,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import me.Prem.DTC.config.Config;
 import me.Prem.DTC.listeners.CoreBreakListener;
+import me.Prem.DTC.listeners.CorePlaceListener;
 import me.Prem.DTC.manager.GameManager;
 
 public class Main extends JavaPlugin  
@@ -15,11 +16,15 @@ public class Main extends JavaPlugin
 	@Override
 	public void onEnable() 
 	{
-		//super.onEnable();
+		super.onEnable();
+		System.out.println("PREM DTC IS RUNNING!");
 		
+		this.saveDefaultConfig();
 		this.config = new Config(this);
 		this.gameManager = new GameManager(this);
 		getServer().getPluginManager().registerEvents(new CoreBreakListener(gameManager), this);
+		getServer().getPluginManager().registerEvents(new CorePlaceListener(gameManager), this);
+		
 		
 		
 	}
@@ -32,7 +37,8 @@ public class Main extends JavaPlugin
 		gameManager.cleanup();
 	}
 	
-	public Config getConfigClass() {
+	public Config getConfigClass() 
+	{
 		return config;
 	}
 }

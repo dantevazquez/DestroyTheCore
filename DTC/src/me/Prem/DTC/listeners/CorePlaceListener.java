@@ -1,6 +1,7 @@
 package me.Prem.DTC.listeners;
 
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,15 +20,19 @@ public class CorePlaceListener implements Listener{
 	}
 
 	@EventHandler
-    public void onBlockPlace(BlockPlaceEvent event){
-		if (gameManager.isListening()) {
+    public void onBlockPlace(BlockPlaceEvent event)
+	{
+		if (gameManager.isListening()) 
+		{
 			Player player = event.getPlayer();
 			ItemMeta itemMeta = player.getInventory().getItemInMainHand().getItemMeta();
 			
-			if (player.getInventory().getItemInMainHand().getType().equals	// if the block equals that specified in the config.
-					(Material.getMaterial(gameManager.getConfigClass().getCoreMaterial())) && itemMeta.hasCustomModelData()) {
+			if (itemMeta.getDisplayName().contains("Core") && itemMeta.hasCustomModelData()) 
+			{
 				gameManager.setCoreLocation(event.getBlock().getLocation());
+				player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1f, 1f);
 				gameManager.setGameState(GameState.STARTING, player);
+			
 			}
 		}    
     }

@@ -1,4 +1,33 @@
 #DTC v0.1.0
 
-MaxCoreHealth: 100
-CoreMaterial: OBSIDIAN
+MaxCoreHealth: 5
+CoreMaterial: custom_core #for custom core do CUSTOM_CORE
+CustomCoreId: ts3
+
+#SET WINNER LOOT
+Reward 1: DIAMOND #item id
+Amount 1: 5       #item amount
+
+Reward 2: AIR
+Amount 2: 0
+
+Reward 3: AIR
+Amount 3: 0
+
+Reward 4: AIR
+Amount 4: 0
+
+Reward 5: AIR
+Amount 5: 0
+
+Reward 6: AIR
+Amount 6: 0
+
+Reward 7: AIR
+Amount 7: 0
+
+Reward 8: AIR
+Amount 8: 0
+
+Reward 9: AIR
+Amount 9: 0
