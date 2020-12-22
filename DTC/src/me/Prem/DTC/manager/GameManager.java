@@ -20,7 +20,7 @@ public class GameManager {
 	private final PlayerManager playerManager;
 	private Location coreLocation;
 	
-	private boolean isListening = false;
+	private boolean isListening = false; //Program is or is not listening for admin to place core 
 	private boolean isWon = false; //indicates if someone has won the DTC event
 	private boolean gameStarted=false; //whether game is active or inactive
 	
@@ -48,31 +48,33 @@ public class GameManager {
 			String matCompare = getConfigClass().getCoreMaterial();
 			if (matCompare.equalsIgnoreCase("custom_core"))
 			{
+				//give admin custom core
 				player.getInventory().addItem(coreManager.getCoreItemStackHead());
 			}
 			else
 			{
+				//give admmin normal minecraft core
 				player.getInventory().addItem(coreManager.getCoreItemStack());
 			}
 			
-			isListening = true;
+			isListening = true; //program is listening for core placement
 			break;
 			
 		case STARTING:
 			//do stuff to start game
 			Bukkit.broadcastMessage("DTC EVENT HAS STARTED");
+			playerManager.displayScore(player, false); 
 			gameStarted=true;
 			isListening = false;
 			
 			break;	
 			
 		case INACTIVE:
-			// remove any special core blocks in a players inventory,
-			//and remove the game world block, stop keeping track of player breaking progress.
 			Bukkit.broadcastMessage("DTC EVENT HAS BEEN HALTED");
-			playerManager.resetPlayerPoints();
-			gameStarted=false;
-			isListening=false;
+			playerManager.resetPlayerPoints(); //Stops keeping track of player event points
+			playerManager.displayScore(player, true); //Removes score board from screen
+			gameStarted=false; //Game is not active
+			isListening=false; //Game is not initialized
 			break;
 			
 						
@@ -97,7 +99,6 @@ public class GameManager {
 	{
 		
 	}
-	
 	
 	public boolean gameStarted()
 	{
@@ -141,7 +142,7 @@ public class GameManager {
 	}
 	
 	public boolean isListening() {
-		return isListening;
+		return isListening; //return if program is listening for admin to place core
 	}
 	
 	

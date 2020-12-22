@@ -53,16 +53,16 @@ public class PlayerManager
 		{
 			if (player.getInventory().firstEmpty() == -1)
 			{
+				//If players inventory is full, drop it to them
 				Location loc = player.getLocation();
 				World world = player.getWorld();
-				
 				world.dropItemNaturally(loc,reward[i]);
 				groundLoot= true;
-				
 				
 			}
 			else
 			{	
+				//give loot player via inventory placement
 				player.getInventory().addItem(reward[i]);
 			}
 		}
@@ -71,6 +71,7 @@ public class PlayerManager
 		
 		if (groundLoot == true)
 		{
+			//if loot was dropped..
 			player.sendMessage("some loot was dropped on the ground");
 		}
 	}
@@ -110,28 +111,34 @@ public class PlayerManager
 		int setScoreTo = 0;
 		
 		score = new Score[Bukkit.getOnlinePlayers().size()];
+		
 		int i = 0;
 		
 		for(Player online : Bukkit.getOnlinePlayers())
 		{
+			//add a player to scoreboard
 			score[i] = obj.getScore(online);
 			//score[i] = obj.getScore(online.getDisplayName());
+			
 			if (getPlayerPoints(online.getUniqueId()) == null)
 			{
+				//If player doesnt have points sets score to 0 to avoid null error
 				setScoreTo = 0;
 			}
 			else
 			{
+				//gets the current players points
 				setScoreTo = getPlayerPoints(online.getUniqueId());
 			}
 			
-			score[i].setScore(setScoreTo);
+			score[i].setScore(setScoreTo); //sets score of current player
 			
-			i++;
+			i++; 
 		}	
 			
 		for(Player online : Bukkit.getOnlinePlayers())
 		{
+			//display score board to every player online
 			online.setScoreboard(board);
 		}
 		
@@ -139,6 +146,7 @@ public class PlayerManager
 		{
 			for(Player online : Bukkit.getOnlinePlayers())
 			{
+				//remove score board from online player's screens
 				online.setScoreboard(manager.getNewScoreboard());
 			}
 		}

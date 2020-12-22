@@ -19,10 +19,13 @@ public class CoreBreakListener implements Listener
 		this.gameManager = gameManager;
 	}
 	
+	//This event listens for when a player breaks the core
+	//It also checks if a player has reached the max core health
+	//It also displays the score board every time someone gains points
 	@EventHandler
 	private void onBlockBreak(BlockBreakEvent event)
 	{
-		//Handle when a player breaks the core
+		
 		if (gameManager.gameStarted()) 
 		{
 			Player player = event.getPlayer();
@@ -33,21 +36,25 @@ public class CoreBreakListener implements Listener
 			if (loc.getBlockX() == coreLoc.getBlockX() && loc.getBlockY() == coreLoc.getBlockY()
 					&& loc.getBlockZ() == coreLoc.getBlockZ() && gameManager.isWon() == false)
 			{
+				//core was broken, player who broke it gets a point
 				gameManager.getPlayerManager().addPointToPlayer(player.getUniqueId());
 				player.playSound(loc, Sound.BLOCK_ANVIL_PLACE, 1f, 1f);
 				
 				
 				if (gameManager.getPlayerManager().getPlayerPoints(player.getUniqueId()) >= gameManager.getConfigClass().getMaxCoreHealth())
 				{
+					//A player has won the event
 					player.playSound(loc, Sound.ENTITY_FIREWORK_ROCKET_TWINKLE, 1f, 1f);
 					gameManager.setGameState(GameState.WON, player);
 					removeScoreboard=true;
 				}
 				else
 				{
+					//game is not finished re-place the core
 					event.setCancelled(true);
 			    }	
 				
+				//display score board
 				gameManager.getPlayerManager().displayScore(player, removeScoreboard);
 			}
 		}

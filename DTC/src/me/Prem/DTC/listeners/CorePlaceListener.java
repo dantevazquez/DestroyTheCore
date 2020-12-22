@@ -19,6 +19,8 @@ public class CorePlaceListener implements Listener{
 		this.gameManager = gameManager;
 	}
 
+	//This event listens for the placement of the core
+	//This event also starts the DTC event once the core is placed
 	@EventHandler
     public void onBlockPlace(BlockPlaceEvent event)
 	{
