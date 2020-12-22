@@ -1,0 +1,9 @@
+main: me.Prem.DTC.Main
+name: PremsDTC
+version: 0.1.0
+author: Prem
+api-version: 1.16
+
+commands:
+   dtc:
+   
