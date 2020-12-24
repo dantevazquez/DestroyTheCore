@@ -99,12 +99,6 @@ public class GameManager {
 		case SETLOCATION:
 			playerSetLocation= player.getLocation();
 			plugin.data.getConfig().set("PlayerSetLocation", playerSetLocation);
-			//int x = playerSetLocation.getBlockX();
-			//int y = playerSetLocation.getBlockY();
-			//int z = playerSetLocation.getBlockZ();
-			//plugin.getConfig().set("PlayerGetX", x);
-			//plugin.getConfig().set("PlayerGetY", y);
-			//plugin.getConfig().set("PlayerGetZ", z);
 			plugin.data.saveConfig();
 			
 			break;
