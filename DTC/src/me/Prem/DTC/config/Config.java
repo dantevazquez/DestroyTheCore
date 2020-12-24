@@ -15,7 +15,7 @@ public class Config {
 	
 	public int getMaxCoreHealth() {return plugin.getConfig().getInt("MaxCoreHealth");}
 	
-	public String getCoreMaterial() {return plugin.getConfig().getString("CoreMaterial");}
+	public String getCoreMaterial() {return plugin.getConfig().getString("CoreMaterial").toUpperCase();}
 	
 	public String getCustomCoreId() {return plugin.getConfig().getString("CustomCoreId");}
 	

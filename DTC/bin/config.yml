@@ -1,8 +1,8 @@
 #DTC v0.1.0
 
-MaxCoreHealth: 5
-CoreMaterial: custom_core #for custom core do CUSTOM_CORE
-CustomCoreId: SosynSpecc
+MaxCoreHealth: 50 #Amount of times a player has to break the core
+CoreMaterial: custom_core #for custom core do CUSTOM_CORE, otherwise use a minecraft material like obsidian, dirt, etc.
+CustomCoreId: SosynSpecc  # Use a player name. minecraft-heads.com has a useful database.
 
 #SET A DAILY SCHEDULE
 #YOU MAY SET UP TO 2 DAILY EVENTS
