@@ -25,6 +25,7 @@ public class DtcCommands implements CommandExecutor
 	{
 		Player player = (Player) sender;
 		
+		//Admin Commands
 		if (player.isOp()) 
 		{
 			if (args[0].equalsIgnoreCase("start"))
@@ -46,6 +47,19 @@ public class DtcCommands implements CommandExecutor
 				player.sendMessage(Utils.chat("&eStopping Game..."));
 				return true;
 			}
+			else if (args[0].equalsIgnoreCase("set"))
+			{
+				if (args[1].equalsIgnoreCase("location"))
+				{
+					gameManager.setGameState(GameState.SETLOCATION, player);
+					player.sendMessage(Utils.chat("&eDTC location set at x:" + player.getLocation().getBlockX() + " y:" + player.getLocation().getBlockY() + " z:" + player.getLocation().getBlockZ()));
+					return true;
+				}
+				
+				player.sendMessage(Utils.chat("&eSet what? Ya bot"));
+				return true;
+				
+			}
 
 			player.sendMessage(Utils.chat("&cInvalid Command"));	
 		}
@@ -53,6 +67,12 @@ public class DtcCommands implements CommandExecutor
 		{
 			player.sendMessage("You dont have access to this command :(");
 			return true;
+		}
+		
+		//Default player commands
+		if (args[0].equalsIgnoreCase("schedule"))
+		{
+			gameManager.getScheduleManager().displaySchedule(player);
 		}
 		
 	

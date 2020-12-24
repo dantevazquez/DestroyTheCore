@@ -33,8 +33,7 @@ public class CoreBreakListener implements Listener
 			Location coreLoc= gameManager.getCoreLocation();
 			boolean removeScoreboard=false;
 			
-			if (loc.getBlockX() == coreLoc.getBlockX() && loc.getBlockY() == coreLoc.getBlockY()
-					&& loc.getBlockZ() == coreLoc.getBlockZ() && gameManager.isWon() == false)
+			if (loc.getBlockX() == coreLoc.getBlockX() && loc.getBlockY() == coreLoc.getBlockY()&& loc.getBlockZ() == coreLoc.getBlockZ()) 
 			{
 				//core was broken, player who broke it gets a point
 				gameManager.getPlayerManager().addPointToPlayer(player.getUniqueId());
@@ -57,6 +56,8 @@ public class CoreBreakListener implements Listener
 				//display score board
 				gameManager.getPlayerManager().displayScore(player, removeScoreboard);
 			}
+
+			
 		}
 	}
 }

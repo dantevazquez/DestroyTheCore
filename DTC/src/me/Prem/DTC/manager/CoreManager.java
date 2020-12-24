@@ -29,4 +29,6 @@ public class CoreManager
 		return new CoreItemStackHead(customCoreId, "Core");
 	}
 	
+
+	
 }

@@ -1,10 +1,6 @@
 package me.Prem.DTC.manager;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 import me.Prem.DTC.Main;
@@ -18,11 +14,17 @@ public class GameManager {
   	
 	private final CoreManager coreManager;
 	private final PlayerManager playerManager;
+	private final ChatManager chatManager;
+	private final RewardManager rewardManager;
+	private final ScheduleManager scheduleManager;
+	
 	private Location coreLocation;
+	private Location playerSetLocation;
 	
 	private boolean isListening = false; //Program is or is not listening for admin to place core 
 	private boolean isWon = false; //indicates if someone has won the DTC event
 	private boolean gameStarted=false; //whether game is active or inactive
+	
 	
 	public GameManager(Main plugin)
 	{
@@ -30,6 +32,9 @@ public class GameManager {
 		
 		this.coreManager = new CoreManager (this);
 		this.playerManager = new PlayerManager(this);
+		this.chatManager = new ChatManager (this);
+		this.rewardManager = new RewardManager(this);
+		this.scheduleManager = new ScheduleManager(this);
 		new DtcCommands(this);
 	}
 	
@@ -37,6 +42,8 @@ public class GameManager {
 	{
 		//check if game is already active
 		if (isListening && gameState == GameState.INITIALIZE) return;
+		
+		if (gameStarted && gameState == GameState.STARTING) return;
 		
 		switch(gameState)
 		{
@@ -62,7 +69,7 @@ public class GameManager {
 			
 		case STARTING:
 			//do stuff to start game
-			Bukkit.broadcastMessage("DTC EVENT HAS STARTED");
+			chatManager.displayStart();
 			playerManager.displayScore(player, false); 
 			gameStarted=true;
 			isListening = false;
@@ -70,7 +77,7 @@ public class GameManager {
 			break;	
 			
 		case INACTIVE:
-			Bukkit.broadcastMessage("DTC EVENT HAS BEEN HALTED");
+			chatManager.displayStop();
 			playerManager.resetPlayerPoints(); //Stops keeping track of player event points
 			playerManager.displayScore(player, true); //Removes score board from screen
 			gameStarted=false; //Game is not active
@@ -81,14 +88,28 @@ public class GameManager {
 		case WON:
 			//announce the winner
 			//give rewards using playerManager
-			player.sendMessage("You won!");
-			Bukkit.broadcastMessage(player.getDisplayName() + " has won the DTC event!");
-			playerManager.giveRewards(player);
+			chatManager.displayWinner(player);
+			rewardManager.giveRewards(player);
 			isWon= true;
 			isListening=false;
 			gameStarted=false; //game is inactive
 			
 			break;
+			
+		case SETLOCATION:
+			playerSetLocation= player.getLocation();
+			plugin.data.getConfig().set("PlayerSetLocation", playerSetLocation);
+			//int x = playerSetLocation.getBlockX();
+			//int y = playerSetLocation.getBlockY();
+			//int z = playerSetLocation.getBlockZ();
+			//plugin.getConfig().set("PlayerGetX", x);
+			//plugin.getConfig().set("PlayerGetY", y);
+			//plugin.getConfig().set("PlayerGetZ", z);
+			plugin.data.saveConfig();
+			
+			break;
+
+			
 				
 		default:
 			break;
@@ -108,6 +129,11 @@ public class GameManager {
 	public boolean isWon()
 	{
 		return isWon; //return whether or not someone won the dtc event
+	}
+	
+	public Location getPlayerSetLocation()
+	{
+		return playerSetLocation;
 	}
 	
 	public Location getCoreLocation()
@@ -131,6 +157,16 @@ public class GameManager {
 	public PlayerManager getPlayerManager()
 	{
 		return playerManager;
+	}
+	
+	public ChatManager getChatManager()
+	{
+		return chatManager;
+	}
+	
+	public ScheduleManager getScheduleManager()
+	{
+		return scheduleManager;
 	}
 	
 	public Main getMain()

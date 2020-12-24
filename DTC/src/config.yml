@@ -2,32 +2,40 @@
 
 MaxCoreHealth: 5
 CoreMaterial: custom_core #for custom core do CUSTOM_CORE
-CustomCoreId: ts3
+CustomCoreId: SosynSpecc
+
+#SET A DAILY SCHEDULE
+#YOU MAY SET UP TO 2 DAILY EVENTS
+#MAKE SURE YOU SET UP THE EVENT LOCATION DOING /DTC SET LOCATION 
+Scheduler: false #Set to true if you want to schedule daily events on your server
+#EVENT A
+Hour A: 20
+Minute A: 00
+
+#EVENT B
+Hour B: 12
+Minute B: 00
+
 
 #SET WINNER LOOT
+#If you wanna add more rewards add some with the following format
+#Reward n: ITEM_ID
+#Amount n: item amount
+
 Reward 1: DIAMOND #item id
 Amount 1: 5       #item amount
 
-Reward 2: AIR
-Amount 2: 0
+Reward 2: BEDROCK
+Amount 2: 4
 
-Reward 3: AIR
-Amount 3: 0
+Reward 3: IRON_INGOT 
+Amount 3: 32
 
-Reward 4: AIR
-Amount 4: 0
+Reward 4: GOLD_INGOT
+Amount 4: 32
 
-Reward 5: AIR
-Amount 5: 0
+Reward 5: NETHERITE_INGOT 
+Amount 5: 1
 
-Reward 6: AIR
-Amount 6: 0
 
-Reward 7: AIR
-Amount 7: 0
 
-Reward 8: AIR
-Amount 8: 0
-
-Reward 9: AIR
-Amount 9: 0
