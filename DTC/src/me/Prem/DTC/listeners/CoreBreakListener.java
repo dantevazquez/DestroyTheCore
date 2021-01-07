@@ -26,7 +26,7 @@ public class CoreBreakListener implements Listener
 	private void onBlockBreak(BlockBreakEvent event)
 	{
 		
-		if (gameManager.gameStarted()) 
+		if (gameManager.gameStarted()== true) 
 		{
 			Player player = event.getPlayer();
 			Location loc = event.getBlock().getLocation();

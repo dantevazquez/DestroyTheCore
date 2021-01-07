@@ -90,6 +90,9 @@ public class GameManager {
 			//give rewards using playerManager
 			chatManager.displayWinner(player);
 			rewardManager.giveRewards(player);
+			playerManager.resetPlayerPoints(); //Stops keeping track of player event points
+			playerManager.displayScore(player, true); //Removes score board from screen
+			
 			isWon= true;
 			isListening=false;
 			gameStarted=false; //game is inactive
